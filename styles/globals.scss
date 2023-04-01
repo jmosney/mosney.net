@@ -1,0 +1,19 @@
+:root {
+  --backgroundColor: #333;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  background-color: var(--backgroundColor);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

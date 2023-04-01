@@ -1,0 +1,21 @@
+.table {
+  height: 20px;
+}
+
+.tableRow {
+  display: inline-flex;
+}
+
+.cornerCell {
+  height: 20px;
+  width: 20px;
+}
+
+.headings {
+  height: 20px;
+  width: 100px;
+  margin: 1px;
+  border: 1px solid #ccc;
+  background-color: #f2f2f2;
+  text-align: center;
+}
