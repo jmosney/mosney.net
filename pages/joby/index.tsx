@@ -1,11 +1,11 @@
 import Head from 'next/head';
-import Select from './components/select';
+import Select from '../../components/joby/select';
 import Image from 'next/image';
 import { Inter } from 'next/font/google';
 import styles from '../../styles/Joby.module.scss';
 import mapImage from '../../public/map.jpg';
-import HeadingChart from './components/heading-chart';
-import NoiseChart from './components/noise-chart';
+import HeadingChart from '../../components/joby/heading-chart';
+import NoiseChart from '../../components/joby/noise-chart';
 
 const inter = Inter({ subsets: ['latin'] });
 
