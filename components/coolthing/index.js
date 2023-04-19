@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './CoolThing.module.scss'
 
-export default function CoolThing({uppercase}) {
+export default function CoolThing({uppercase = false}) {
   const [random, setRandom] = useState([]);
   const [active, setActive] = useState(false);
 

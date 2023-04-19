@@ -12,6 +12,7 @@ module.exports = {
       'jobyblue': '#006AC6',
       'white': '#ffffff',
       'black': '#000000',
+      'transparent': 'transparent',
     },
     fontFamily: {
       sans: ['Inter', '__Inter_e7970e', 'sans-serif']
