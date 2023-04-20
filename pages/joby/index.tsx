@@ -6,12 +6,40 @@ import styles from '../../styles/Joby.module.scss';
 import mapImage from '../../public/map.jpg';
 import HeadingChart from '../../components/joby/heading-chart';
 import NoiseChart from '../../components/joby/noise-chart';
+import BatteryChart from '../../components/joby/battery-chart';
+import { FormEvent, useState } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
-  const handleOnChange = (e: any) => {
-    console.log('change select to', e.target.value);
+  const [chartSlots, setChartSlots] = useState([
+    'Heading/Altitude',
+    'Flight Path',
+    'Rotor Speed',
+    'Noise Profile',
+  ]);
+
+  const nameToComponentMap = {
+    'Heading/Altitude': HeadingChart,
+    'Noise Profile': NoiseChart,
+  };
+
+  const getChartForSlot = (slot: number) => {
+    const chartName = chartSlots[slot];
+    // @ts-ignore
+    const Component = nameToComponentMap[chartName];
+    return <Component></Component>;
+  };
+
+  const handleOnChange = (e: any, chartSlot: number) => {
+    const changeTo = e.target.value;
+    if (!Object.keys(nameToComponentMap).includes(changeTo)) {
+      e.preventDefault();
+      return;
+    };
+    const newChartSlots = [...chartSlots];
+    newChartSlots[chartSlot] = changeTo;
+    setChartSlots(newChartSlots);
   };
 
   return (
@@ -29,7 +57,7 @@ export default function Home() {
       <main className={`${inter.className} p-8 min-h-screen bg-darkgrey`}>
         <header className='grid grid-cols-2'>
           <div className='flex'>
-            <Image className='mr-3' src="/logo.svg" alt="" width="63" height="38" />
+            <Image className='mr-3' src="/logo.svg" alt="" width="64" height="39" />
             <h1 className='font-sans text-white text-3xl'>Flight Analytics</h1>
           </div>
           <div className='flex flex-row-reverse items-center'>
@@ -77,13 +105,13 @@ export default function Home() {
 
         <div className='grid grid-cols-3 gap-6 mt-8'>
           <div className="col-span-2">
-            <Select onChange={handleOnChange} value='Heading/Altitude'></Select>
+            <Select onChange={(e: FormEvent) => handleOnChange(e, 0)} value={chartSlots[0]}></Select>
             <div className='h-80 bg-mediumgrey rounded'>
-              <HeadingChart></HeadingChart>
+              {getChartForSlot(0)}
             </div>
           </div>
           <div className="">
-            <Select onChange={handleOnChange} value='Flight Path'></Select>
+            <Select onChange={(e: FormEvent) => handleOnChange(e, 1)}  value='Flight Path'></Select>
             <div className='h-80 bg-mediumgrey rounded'
                 style={{
                   backgroundImage: `url(${mapImage.src})`,
@@ -93,15 +121,15 @@ export default function Home() {
             </div>
           </div>
           <div className="">
-            <Select onChange={handleOnChange} value='Rotor Speed'></Select>
+            <Select onChange={(e: FormEvent) => handleOnChange(e, 2)}  value='Rotor Speed'></Select>
             <div className='h-80 bg-mediumgrey rounded flex items-center justify-center'>
               <Image className='inline mr-2' src="/rotor-speed-diagram.png" alt="Rotor Speeds" width="800" height="406" />
             </div>
           </div>
           <div className="col-span-2">
-            <Select onChange={handleOnChange} value='Noise Profile'></Select>
+            <Select onChange={(e: FormEvent) => handleOnChange(e, 3)} value={chartSlots[3]}></Select>
             <div className='h-80 bg-mediumgrey rounded'>
-              <NoiseChart></NoiseChart>
+              {getChartForSlot(3)}
             </div>
           </div>
         </div>
